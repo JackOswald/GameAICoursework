@@ -42,7 +42,7 @@ public class AIScript : MonoBehaviour {
 		utilityAI = GetComponent<UtilityAI> ();
 
 		//aiAgent = GameObject.FindGameObjectWithTag ("Agent");
-		//currentHealth = maxHealth;
+		currentHealth = maxHealth;
 
 		currentAmmo = ammoCapacity;
 
@@ -56,13 +56,13 @@ public class AIScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		//MoveToAI (enemyChoice);
-		Heal(healthChoice);
+		MoveToAI (enemyChoice);
+		//Heal(healthChoice);
 
 		UpdateHealth ();
 		UpdateAmmo ();
 
-		//Attack ();
+		Attack ();
 
 		//RunAway ();
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public class UtilityAI : MonoBehaviour {
 
@@ -19,17 +20,21 @@ public class UtilityAI : MonoBehaviour {
 	public Text runUtilityText;
 	public Text reloadUtilityText;
 	public Text attackUtilityText;
+	public Text highestUtility;
 
 	public float testList;
 
 	public List<float> utilityList = new List<float>();
-	public 
+	public float[] arrayList;
+	//public ArrayList arr = new ArrayList();
 
 	// Use this for initialization
 	void Start () 
 	{
 		aiScript = GetComponent<AIScript> ();
-	
+
+		arrayList = new float[4];
+
 	}
 	
 	// Update is called once per frame
@@ -46,6 +51,18 @@ public class UtilityAI : MonoBehaviour {
 
 		CalculateAttackUtility ();
 		DisplayAttackUtility ();
+
+		DisplayHighestUtility ();
+
+		arrayList [0] = utilityHealthScore;
+		arrayList [1] = utilityRunScore;
+		arrayList [2] = utilityReloadScore;
+		arrayList [3] = utilityAttackScore;
+	
+		//Debug.Log (Mathf.Max ((float)arrayList [0], (float)arrayList [1]));
+
+		//Debug.Log (arrayList.Max ());
+
 
 		//utilityList.Insert (0, utilityHealthScore);
 		//utilityList.Insert (1, utilityRunScore);
@@ -70,7 +87,7 @@ public class UtilityAI : MonoBehaviour {
 
 	void CalculateReloadUtility()
 	{
-		utilityReloadScore = (1 - Mathf.Pow((aiScript.currentAmmo / aiScript.ammoCapacity), 2));
+		utilityReloadScore = (1 - Mathf.Pow((aiScript.currentAmmo / aiScript.ammoCapacity), 2) - 10);
 		utilityReloadScore = Mathf.Clamp (utilityReloadScore, 0.0f, 1.0f);
 	}
 
@@ -99,9 +116,8 @@ public class UtilityAI : MonoBehaviour {
 		attackUtilityText.text = "Attack Utility: " + utilityAttackScore.ToString ();
 	}
 
-	void AddUtilitiesToList()
+	void DisplayHighestUtility()
 	{
-		
+		highestUtility.text = "Highest Utility: " + arrayList.Max ().ToString();
 	}
-
 }
