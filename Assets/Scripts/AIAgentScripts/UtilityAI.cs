@@ -47,10 +47,10 @@ public class UtilityAI : MonoBehaviour {
 		CalculateAttackUtility ();
 		DisplayAttackUtility ();
 
-		utilityList.Insert (0, utilityHealthScore);
-		utilityList.Insert (1, utilityRunScore);
-		utilityList.Insert (2, utilityReloadScore);
-		utilityList.Insert (3, utilityAttackScore);
+		//utilityList.Insert (0, utilityHealthScore);
+		//utilityList.Insert (1, utilityRunScore);
+		//utilityList.Insert (2, utilityReloadScore);
+		//utilityList.Insert (3, utilityAttackScore);
 
 	}
 
@@ -70,7 +70,7 @@ public class UtilityAI : MonoBehaviour {
 
 	void CalculateReloadUtility()
 	{
-		utilityReloadScore = 1 - (aiScript.currentAmmo / aiScript.ammoCapacity);
+		utilityReloadScore = (1 - Mathf.Pow((aiScript.currentAmmo / aiScript.ammoCapacity), 2));
 		utilityReloadScore = Mathf.Clamp (utilityReloadScore, 0.0f, 1.0f);
 	}
 

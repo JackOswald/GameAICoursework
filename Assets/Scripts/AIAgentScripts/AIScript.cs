@@ -26,6 +26,9 @@ public class AIScript : MonoBehaviour {
 	public int damage;
 	public bool inRange;
 
+	public GameObject[] healthPacks;
+	public GameObject healthChoice;
+
 	public float fireRate = 1.0f;
 	public float lastFired;
 
@@ -39,26 +42,27 @@ public class AIScript : MonoBehaviour {
 		utilityAI = GetComponent<UtilityAI> ();
 
 		//aiAgent = GameObject.FindGameObjectWithTag ("Agent");
-		currentHealth = maxHealth;
+		//currentHealth = maxHealth;
 
 		currentAmmo = ammoCapacity;
 
 		inRange = false;
 
 		SelectRandomEnemy ();
+		SelectRandomHealthPack ();
 
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		MoveToAI (enemyChoice);
-
+		//MoveToAI (enemyChoice);
+		Heal(healthChoice);
 
 		UpdateHealth ();
 		UpdateAmmo ();
 
-		Attack ();
+		//Attack ();
 
 		//RunAway ();
 
@@ -78,6 +82,13 @@ public class AIScript : MonoBehaviour {
 		int selectRandom = Random.Range (0, targets.Length);
 		enemyChoice = targets [selectRandom];
 		return enemyChoice;
+	}
+
+	GameObject SelectRandomHealthPack()
+	{
+		int selectRandom = Random.Range (0, healthPacks.Length);
+		healthChoice = healthPacks [selectRandom];
+		return healthChoice;
 	}
 
 	void MoveToAI(GameObject targetSelected)
@@ -124,11 +135,25 @@ public class AIScript : MonoBehaviour {
 			
 	}
 
-	public void Heal()
+	public void Heal(GameObject healthPackSelected)
 	{
-		
+		transform.LookAt (healthPackSelected.transform.position);
+		transform.Rotate (new Vector3 (0, -90, 0), Space.Self);
+		transform.Translate (new Vector3 (speed * Time.deltaTime, 0, 0));
 	}
 
+	public void AddHealth(int healAmount)
+	{
+		currentHealth += healAmount;
+
+		if (currentHealth > maxHealth) 
+		{
+			currentHealth = maxHealth;
+		}
+
+		UpdateHealth ();
+	}
+		
 	public void Reload()
 	{
 		StartCoroutine (ReloadGun ());
