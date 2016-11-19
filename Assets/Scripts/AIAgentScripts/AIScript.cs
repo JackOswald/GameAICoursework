@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 
 public class AIScript : MonoBehaviour {
 
@@ -36,6 +37,8 @@ public class AIScript : MonoBehaviour {
 
 	public UtilityAI utilityAI;
 
+	 public float utilityCooldownTimer;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -47,35 +50,33 @@ public class AIScript : MonoBehaviour {
 		currentAmmo = ammoCapacity;
 
 		inRange = false;
-
-		SelectRandomEnemy ();
-		SelectRandomHealthPack ();
-
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		MoveToAI (enemyChoice);
-		//Heal(healthChoice);
-
 		UpdateHealth ();
 		UpdateAmmo ();
 
-		Attack ();
+		//StartCoroutine (UtilityCooldown ());
 
-		//RunAway ();
+		utilityCooldownTimer += Time.deltaTime;
 
-		if (currentAmmo == 0) 
+		if (utilityCooldownTimer > 5.0f) 
 		{
-			Reload ();
+			HighestUtility ();
+			utilityCooldownTimer = 0.0f;
 		}
+
 			
-
-		//utilityAI.HealthUtility (currentHealth, maxHealth);
-		//Debug.Log (utilityAI.HealthUtility(currentHealth, maxHealth));
-
 	}
+
+	/*GameObject SelectRandom(GameObject[] objects, GameObject randomChoice)
+	{
+		int selectRandom = Random.Range (0, objects.Length);
+		randomChoice = objects [selectRandom];
+		return randomChoice;
+	}*/
 
 	GameObject SelectRandomEnemy()
 	{
@@ -90,6 +91,7 @@ public class AIScript : MonoBehaviour {
 		healthChoice = healthPacks [selectRandom];
 		return healthChoice;
 	}
+
 
 	void MoveToAI(GameObject targetSelected)
 	{
@@ -134,9 +136,9 @@ public class AIScript : MonoBehaviour {
 		}
 			
 	}
-
-	public void Heal(GameObject healthPackSelected)
-	{
+		
+	void Heal(GameObject healthPackSelected)
+	{ 
 		transform.LookAt (healthPackSelected.transform.position);
 		transform.Rotate (new Vector3 (0, -90, 0), Space.Self);
 		transform.Translate (new Vector3 (speed * Time.deltaTime, 0, 0));
@@ -178,5 +180,42 @@ public class AIScript : MonoBehaviour {
 	}
 
 
+	public void HighestUtility()
+	{
+		if (utilityAI.arrayList.Max() == utilityAI.utilityHealthScore) 
+		{	
+			SelectRandomHealthPack ();
+			Heal (healthChoice);
+			Debug.Log("heal");
+		}
+
+		if (utilityAI.arrayList.Max () == utilityAI.utilityAttackScore)
+		{
+			SelectRandomEnemy ();
+			//SelectRandom(targets, enemyChoice);
+			MoveToAI (enemyChoice);
+			Attack ();
+			Debug.Log("attack");
+		}
+
+		if (utilityAI.arrayList.Max () == utilityAI.utilityRunScore) 
+		{
+			RunAway ();
+			Debug.Log("run");
+		}
+
+		if (utilityAI.arrayList.Max () == utilityAI.utilityReloadScore) 
+		{
+			Reload ();
+			Debug.Log("reload");
+		}
+	}
+
+	IEnumerator UtilityCooldown()
+	{
+		HighestUtility ();
+		yield return new WaitForSeconds (5.0f);
+		Debug.Log ("UTILITYAI");
+	}
 
 }

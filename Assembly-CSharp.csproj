@@ -56,8 +56,10 @@
      <Compile Include="Assets\Scripts\AITurretScripts\ShootingScript.cs" />
      <Compile Include="Assets\Scripts\AITurretScripts\TrackingProjectile.cs" />
      <Compile Include="Assets\Scripts\AITurretScripts\TrackingScript.cs" />
-     <Compile Include="Assets\Scripts\HealthPackScript.cs" />
      <Compile Include="Assets\Scripts\PlayerTestScript.cs" />
+     <Compile Include="Assets\Scripts\SceneScripts\HealthPackScript.cs" />
+     <Compile Include="Assets\Scripts\SceneScripts\HealthPackSpawnScript.cs" />
+     <Compile Include="Assets\Scripts\SceneScripts\WallScripts.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
