@@ -57,18 +57,11 @@ public class AIScript : MonoBehaviour {
 	{
 		UpdateHealth ();
 		UpdateAmmo ();
-
-		//StartCoroutine (UtilityCooldown ());
-
+	
 		utilityCooldownTimer += Time.deltaTime;
 
-		if (utilityCooldownTimer > 5.0f) 
-		{
-			HighestUtility ();
-			utilityCooldownTimer = 0.0f;
-		}
+		HighestUtility ();
 
-			
 	}
 
 	/*GameObject SelectRandom(GameObject[] objects, GameObject randomChoice)
@@ -210,12 +203,5 @@ public class AIScript : MonoBehaviour {
 			Debug.Log("reload");
 		}
 	}
-
-	IEnumerator UtilityCooldown()
-	{
-		HighestUtility ();
-		yield return new WaitForSeconds (5.0f);
-		Debug.Log ("UTILITYAI");
-	}
-
+		
 }

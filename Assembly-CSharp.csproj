@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\AIAgentScripts\UtilityAI.cs" />
      <Compile Include="Assets\Scripts\AITestDummyScript.cs" />
      <Compile Include="Assets\Scripts\AITurretScripts\AITurretProjectileScript.cs" />
+     <Compile Include="Assets\Scripts\AITurretScripts\AITurretScript.cs" />
      <Compile Include="Assets\Scripts\AITurretScripts\BaseProjectileScript.cs" />
      <Compile Include="Assets\Scripts\AITurretScripts\ProjectileScript.cs" />
      <Compile Include="Assets\Scripts\AITurretScripts\ShootingScript.cs" />
