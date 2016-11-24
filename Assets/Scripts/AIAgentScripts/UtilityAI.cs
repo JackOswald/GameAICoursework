@@ -7,6 +7,7 @@ using System.Linq;
 public class UtilityAI : MonoBehaviour {
 
 	public AIScript aiScript;
+	public AITurretScript aiTurretScript;
 
 	public float utilityHealthScore;
 	public float utilityRunScore;
@@ -32,6 +33,7 @@ public class UtilityAI : MonoBehaviour {
 	void Start () 
 	{
 		aiScript = GetComponent<AIScript> ();
+		aiTurretScript = GameObject.FindGameObjectWithTag("StaticAI1").GetComponent<AITurretScript> ();
 
 		arrayList = new float[4];
 
@@ -94,7 +96,8 @@ public class UtilityAI : MonoBehaviour {
 
 	void CalculateAttackUtility()
 	{
-		utilityAttackScore = Mathf.Pow((aiScript.damage / aiScript.currentHealth),2);
+		//utilityAttackScore = Mathf.Pow((aiScript.damage / aiScript.currentHealth),2);
+		utilityAttackScore = ((aiScript.damage/aiTurretScript.currentHealth) - (aiScript.damage/aiTurretScript.currentHealth) + 1 - aiScript.damage);
 		utilityAttackScore = Mathf.Clamp (utilityAttackScore, 0.5f, 1);
 	}
 		

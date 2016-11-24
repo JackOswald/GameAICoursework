@@ -3,11 +3,14 @@ using System.Collections;
 
 public class AIAgentProjectileScript : MonoBehaviour {
 
+	public AITurretScript aiTurretScript;
+
 	public int damage;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+	{
+		aiTurretScript = GameObject.FindGameObjectWithTag("StaticAI1").GetComponent<AITurretScript> ();
 	}
 	
 	// Update is called once per frame
@@ -20,6 +23,8 @@ public class AIAgentProjectileScript : MonoBehaviour {
 	{
 		if (col.gameObject.tag == "StaticAI1") 
 		{
+			aiTurretScript.TakeDamage (10);
+			Debug.Log("Turret damaged");
 			Destroy (this.gameObject);
 			//Debug.Log ("Hit " + col.ToString ());
 		}

@@ -30,6 +30,9 @@ public class AIScript : MonoBehaviour {
 	public GameObject[] healthPacks;
 	public GameObject healthChoice;
 
+	public GameObject[] ammoPacks;
+	public GameObject ammoChoice;
+
 	public float fireRate = 1.0f;
 	public float lastFired;
 
@@ -60,7 +63,7 @@ public class AIScript : MonoBehaviour {
 	
 		utilityCooldownTimer += Time.deltaTime;
 
-		HighestUtility ();
+		HighestUtility();
 
 	}
 
@@ -83,6 +86,13 @@ public class AIScript : MonoBehaviour {
 		int selectRandom = Random.Range (0, healthPacks.Length);
 		healthChoice = healthPacks [selectRandom];
 		return healthChoice;
+	}
+
+	GameObject SelectRandomAmmoPack()
+	{
+		int selecRandom = Random.Range (0, ammoPacks.Length);
+		ammoChoice = ammoPacks [selecRandom];
+		return ammoChoice;
 	}
 
 
@@ -149,10 +159,14 @@ public class AIScript : MonoBehaviour {
 		UpdateHealth ();
 	}
 		
-	public void Reload()
+	public void Reload(GameObject selected)
 	{
-		StartCoroutine (ReloadGun ());
+		transform.LookAt (selected.transform.position);
+		transform.Rotate (new Vector3 (0, -90, 0), Space.Self);
+		transform.Translate (new Vector3 (speed * Time.deltaTime, 0, 0));
+		//StartCoroutine (ReloadGun ());
 	}
+
 
 	IEnumerator ReloadGun()
 	{
@@ -169,7 +183,6 @@ public class AIScript : MonoBehaviour {
 		{
 			transform.Translate (new Vector3 (speed * Time.deltaTime, 0, 0));
 		}
-		
 	}
 
 
@@ -199,7 +212,8 @@ public class AIScript : MonoBehaviour {
 
 		if (utilityAI.arrayList.Max () == utilityAI.utilityReloadScore) 
 		{
-			Reload ();
+			SelectRandomAmmoPack ();
+			Reload (ammoChoice);
 			Debug.Log("reload");
 		}
 	}
