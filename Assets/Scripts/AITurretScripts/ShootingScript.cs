@@ -12,10 +12,13 @@ public class ShootingScript : MonoBehaviour {
 	public GameObject projectileSpawn;
 	public GameObject aiAgent;
 
+	public AITurretScript aiTurretScript;
+
 	// Use this for initialization
 	void Start () 
 	{
 		range = false;
+		aiTurretScript = GetComponentInParent<AITurretScript> ();
 	}
 	
 	// Update is called once per frame
@@ -42,7 +45,7 @@ public class ShootingScript : MonoBehaviour {
 	{
 		if (col.gameObject.tag == "Agent") 
 		{
-			//Debug.Log ("Entered");
+			aiTurretScript.regeneration = 0.0f;
 		}
 			
 	}
@@ -51,7 +54,6 @@ public class ShootingScript : MonoBehaviour {
 	{
 		if (col.gameObject.tag == "Agent")
 		{
-			//Debug.Log ("Staying");
 			range = true;
 		}
 
@@ -61,8 +63,8 @@ public class ShootingScript : MonoBehaviour {
 	{
 		if (col.gameObject.tag == "Agent") 
 		{
-			//Debug.Log ("Exit");
 			range = false;
+			aiTurretScript.regeneration = 1.0f;
 		}
 
 

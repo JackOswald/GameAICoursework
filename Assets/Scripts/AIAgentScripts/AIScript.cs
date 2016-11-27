@@ -36,6 +36,8 @@ public class AIScript : MonoBehaviour {
 	public float fireRate = 1.0f;
 	public float lastFired;
 
+	public bool isInSafeZone = false;
+
 	public Transform safeZone;
 
 	public UtilityAI utilityAI;
@@ -60,9 +62,17 @@ public class AIScript : MonoBehaviour {
 	{
 		UpdateHealth ();
 		UpdateAmmo ();
-	
+
 		utilityCooldownTimer += Time.deltaTime;
 
+		/*if (utilityCooldownTimer >= 5.0f) 
+		{
+			HighestUtility ();
+			utilityCooldownTimer = 0.0f;
+		}*/
+
+		//RunAway ();
+		//SelectRandomAction ();
 		HighestUtility();
 
 	}
@@ -74,6 +84,7 @@ public class AIScript : MonoBehaviour {
 		return randomChoice;
 	}*/
 
+	#region RandomSelection
 	GameObject SelectRandomEnemy()
 	{
 		int selectRandom = Random.Range (0, targets.Length);
@@ -94,6 +105,7 @@ public class AIScript : MonoBehaviour {
 		ammoChoice = ammoPacks [selecRandom];
 		return ammoChoice;
 	}
+	#endregion
 
 
 	void MoveToAI(GameObject targetSelected)
@@ -105,7 +117,6 @@ public class AIScript : MonoBehaviour {
 		{
 			transform.Translate (new Vector3 (speed * Time.deltaTime, 0, 0));
 		}
-
 	}
 
 	public void TakeDamage(int damage)
@@ -128,6 +139,7 @@ public class AIScript : MonoBehaviour {
 		ammoText.text = "Ammo: " + currentAmmo.ToString();
 	}
 
+	#region Attack
 	public void Attack()
 	{
 		if ((Time.time - lastFired > 1 / fireRate) && currentAmmo > 0) 
@@ -139,7 +151,9 @@ public class AIScript : MonoBehaviour {
 		}
 			
 	}
-		
+	#endregion
+
+	#region Heal
 	void Heal(GameObject healthPackSelected)
 	{ 
 		transform.LookAt (healthPackSelected.transform.position);
@@ -158,7 +172,9 @@ public class AIScript : MonoBehaviour {
 
 		UpdateHealth ();
 	}
-		
+	#endregion
+
+	#region Reload
 	public void Reload(GameObject selected)
 	{
 		transform.LookAt (selected.transform.position);
@@ -167,14 +183,20 @@ public class AIScript : MonoBehaviour {
 		//StartCoroutine (ReloadGun ());
 	}
 
+	public void AddBullets()
+	{
+		currentAmmo = ammoCapacity;
+	}
 
 	IEnumerator ReloadGun()
 	{
 		yield return new WaitForSeconds (3.0f);
 		currentAmmo = ammoCapacity;
 	}
+	#endregion
 
-	 public void RunAway()
+	#region Run
+	public void RunAway()
 	{
 		transform.LookAt (safeZone.position);
 		transform.Rotate (new Vector3 (0, -90, 0), Space.Self);
@@ -183,7 +205,24 @@ public class AIScript : MonoBehaviour {
 		{
 			transform.Translate (new Vector3 (speed * Time.deltaTime, 0, 0));
 		}
+			
 	}
+
+	void SelectRandomAction()
+	{
+		int random = Random.Range (0, 2);
+		if (random == 0) 
+		{
+			AddHealth (5);
+			Debug.Log ("Add health");
+		} 
+		else 
+		{
+			AddBullets ();
+			Debug.Log ("Add bullets");
+		}
+	}
+	#endregion
 
 
 	public void HighestUtility()
@@ -192,29 +231,26 @@ public class AIScript : MonoBehaviour {
 		{	
 			SelectRandomHealthPack ();
 			Heal (healthChoice);
-			Debug.Log("heal");
 		}
 
 		if (utilityAI.arrayList.Max () == utilityAI.utilityAttackScore)
 		{
 			SelectRandomEnemy ();
-			//SelectRandom(targets, enemyChoice);
 			MoveToAI (enemyChoice);
 			Attack ();
-			Debug.Log("attack");
 		}
 
 		if (utilityAI.arrayList.Max () == utilityAI.utilityRunScore) 
 		{
 			RunAway ();
 			Debug.Log("run");
+			utilityAI.utilityRunScore = 0;
 		}
 
 		if (utilityAI.arrayList.Max () == utilityAI.utilityReloadScore) 
 		{
 			SelectRandomAmmoPack ();
 			Reload (ammoChoice);
-			Debug.Log("reload");
 		}
 	}
 		

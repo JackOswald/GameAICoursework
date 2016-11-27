@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\AITurretScripts\TrackingProjectile.cs" />
      <Compile Include="Assets\Scripts\AITurretScripts\TrackingScript.cs" />
      <Compile Include="Assets\Scripts\PlayerTestScript.cs" />
+     <Compile Include="Assets\Scripts\SceneScripts\AmmoBoxScript.cs" />
      <Compile Include="Assets\Scripts\SceneScripts\HealthPackScript.cs" />
      <Compile Include="Assets\Scripts\SceneScripts\HealthPackSpawnScript.cs" />
      <Compile Include="Assets\Scripts\SceneScripts\WallScripts.cs" />

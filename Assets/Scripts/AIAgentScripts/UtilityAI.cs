@@ -82,23 +82,25 @@ public class UtilityAI : MonoBehaviour {
 
 	void CalculateRunAwayUtility()
 	{
-		//float healthRun = 1 - (aiScript.currentHealth / aiScript.maxHealth);
-		//float ammoRun = 1 - (aiScript.currentAmmo / aiScript.ammoCapacity);
+		float healthRun = 1 - (aiScript.currentHealth / aiScript.maxHealth);
+		float ammoRun = 1 - (aiScript.currentAmmo / aiScript.ammoCapacity);
+		utilityRunScore = (healthRun + ammoRun) / 2;
 		//utilityRunScore = Mathf.Pow((aiScript.currentHealth/aiScript.maxHealth) / (aiScript.currentAmmo/aiScript.ammoCapacity), 2);
 		utilityRunScore = Mathf.Clamp (utilityRunScore, 0.0f, 1.0f);
 	}
 
 	void CalculateReloadUtility()
 	{
-		utilityReloadScore = Mathf.Pow((aiScript.currentAmmo/aiScript.ammoCapacity) - 1.5f ,2);
+		utilityReloadScore = Mathf.Pow((1 - (aiScript.currentAmmo/aiScript.ammoCapacity)),2);
 		utilityReloadScore = Mathf.Clamp (utilityReloadScore, 0.0f, 1.0f);
 	}
 
 	void CalculateAttackUtility()
 	{
 		//utilityAttackScore = Mathf.Pow((aiScript.damage / aiScript.currentHealth),2);
-		utilityAttackScore = ((aiScript.damage/aiTurretScript.currentHealth) - (aiScript.damage/aiTurretScript.currentHealth) + 1 - aiScript.damage);
-		utilityAttackScore = Mathf.Clamp (utilityAttackScore, 0.5f, 1);
+		float attackScore = (aiTurretScript.currentHealth/aiScript.damage);
+		utilityAttackScore = attackScore * (aiScript.currentAmmo / aiScript.currentHealth);
+		utilityAttackScore = Mathf.Clamp (utilityAttackScore, 0.4f, 1);
 	}
 		
 	void DisplayHealthUtility()
