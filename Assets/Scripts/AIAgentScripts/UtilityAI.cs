@@ -98,9 +98,10 @@ public class UtilityAI : MonoBehaviour {
 	void CalculateAttackUtility()
 	{
 		//utilityAttackScore = Mathf.Pow((aiScript.damage / aiScript.currentHealth),2);
-		float attackScore = (aiTurretScript.currentHealth/aiScript.damage);
-		utilityAttackScore = attackScore * (aiScript.currentAmmo / aiScript.currentHealth);
-		utilityAttackScore = Mathf.Clamp (utilityAttackScore, 0.4f, 1);
+		float attackScore = 1.0f * Mathf.Pow((aiScript.damage / aiTurretScript.currentHealth), 3);
+		Debug.Log (attackScore);
+		utilityAttackScore = attackScore *(aiScript.currentHealth/aiScript.maxHealth * aiScript.currentAmmo/aiScript.ammoCapacity);
+		//utilityAttackScore = Mathf.Clamp (utilityAttackScore, 0.4f, 1);
 	}
 		
 	void DisplayHealthUtility()

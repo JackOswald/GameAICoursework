@@ -224,7 +224,6 @@ public class AIScript : MonoBehaviour {
 	}
 	#endregion
 
-
 	public void HighestUtility()
 	{
 		if (utilityAI.arrayList.Max() == utilityAI.utilityHealthScore) 
