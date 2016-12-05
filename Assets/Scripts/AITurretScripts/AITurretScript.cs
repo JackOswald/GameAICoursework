@@ -22,7 +22,7 @@ public class AITurretScript : MonoBehaviour {
 	void Update () 
 	{
 		UpdateHealth ();
-		//Death ();
+		Death ();
 	}
 
 	public void TakeDamage(float damage)

@@ -91,17 +91,17 @@ public class UtilityAI : MonoBehaviour {
 
 	void CalculateReloadUtility()
 	{
-		utilityReloadScore = Mathf.Pow((1 - (aiScript.currentAmmo/aiScript.ammoCapacity)),2);
+		utilityReloadScore = Mathf.Pow((1 - (aiScript.currentAmmo/aiScript.ammoCapacity)),2) + 0.2f;
 		utilityReloadScore = Mathf.Clamp (utilityReloadScore, 0.0f, 1.0f);
 	}
 
 	void CalculateAttackUtility()
 	{
 		//utilityAttackScore = Mathf.Pow((aiScript.damage / aiScript.currentHealth),2);
-		float attackScore = 1.0f * Mathf.Pow((aiScript.damage / aiTurretScript.currentHealth), 3);
+		float attackScore = 1.5f - (aiScript.damage / aiTurretScript.currentHealth);
 		Debug.Log (attackScore);
-		utilityAttackScore = attackScore *(aiScript.currentHealth/aiScript.maxHealth * aiScript.currentAmmo/aiScript.ammoCapacity);
-		//utilityAttackScore = Mathf.Clamp (utilityAttackScore, 0.4f, 1);
+		utilityAttackScore = attackScore * (aiScript.currentHealth/aiScript.maxHealth * aiScript.currentAmmo/aiScript.ammoCapacity);
+		utilityAttackScore = Mathf.Clamp (utilityAttackScore, 0.4f, 1);
 	}
 		
 	void DisplayHealthUtility()

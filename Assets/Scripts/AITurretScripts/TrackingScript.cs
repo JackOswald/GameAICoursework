@@ -31,7 +31,7 @@ public class TrackingScript : MonoBehaviour {
 	
 	}
 
-	bool GetTarget (GameObject target)
+	/*bool GetTarget (GameObject target)
 	{
 		if (target) 
 		{
@@ -41,5 +41,5 @@ public class TrackingScript : MonoBehaviour {
 		aiAgent = target;
 
 		return true;
-	}
+	}*/
 }
