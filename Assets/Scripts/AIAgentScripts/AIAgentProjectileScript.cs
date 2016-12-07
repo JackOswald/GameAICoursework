@@ -24,7 +24,6 @@ public class AIAgentProjectileScript : MonoBehaviour {
 		if (col.gameObject.tag == "StaticAI1") 
 		{
 			aiTurretScript.TakeDamage (10);
-			Debug.Log("Turret damaged");
 			Destroy (this.gameObject);
 			//Debug.Log ("Hit " + col.ToString ());
 		}

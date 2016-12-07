@@ -84,6 +84,11 @@ public class AIScript : MonoBehaviour {
 		return randomChoice;
 	}*/
 
+	public void TakeDamage(int damage)
+	{
+		currentHealth -= damage;
+	}
+
 	#region RandomSelection
 	GameObject SelectRandomEnemy()
 	{
@@ -107,38 +112,6 @@ public class AIScript : MonoBehaviour {
 	}
 	#endregion
 
-
-	void MoveToAI(GameObject targetSelected)
-	{
-		transform.LookAt (targetSelected.transform.position);
-		transform.Rotate (new Vector3 (0, -90, 0), Space.Self);
-
-		if (Vector3.Distance (transform.position, targetSelected.transform.position) > attackInRange) 
-		{
-			transform.Translate (new Vector3 (speed * Time.deltaTime, 0, 0));
-		}
-	}
-
-	public void TakeDamage(int damage)
-	{
-		currentHealth -= damage;
-	}
-
-	public void UpdateHealth()
-	{
-		healthText.text = "Health " + currentHealth.ToString();
-	}
-
-	public void ShootBullet()
-	{
-		currentAmmo -= 1;
-	}
-
-	public void UpdateAmmo()
-	{
-		ammoText.text = "Ammo: " + currentAmmo.ToString();
-	}
-
 	#region Attack
 	public void Attack()
 	{
@@ -150,6 +123,17 @@ public class AIScript : MonoBehaviour {
 			ShootBullet ();
 		}
 			
+	}
+
+	void MoveToAI(GameObject targetSelected)
+	{
+		transform.LookAt (targetSelected.transform.position);
+		transform.Rotate (new Vector3 (0, -90, 0), Space.Self);
+
+		if (Vector3.Distance (transform.position, targetSelected.transform.position) > attackInRange) 
+		{
+			transform.Translate (new Vector3 (speed * Time.deltaTime, 0, 0));
+		}
 	}
 	#endregion
 
@@ -172,6 +156,11 @@ public class AIScript : MonoBehaviour {
 
 		UpdateHealth ();
 	}
+
+	public void UpdateHealth()
+	{
+		healthText.text = "Health " + currentHealth.ToString();
+	}
 	#endregion
 
 	#region Reload
@@ -193,6 +182,16 @@ public class AIScript : MonoBehaviour {
 		yield return new WaitForSeconds (3.0f);
 		currentAmmo = ammoCapacity;
 	}
+		
+	public void ShootBullet()
+	{
+		currentAmmo -= 1;
+	}
+
+	public void UpdateAmmo()
+	{
+		ammoText.text = "Ammo: " + currentAmmo.ToString();
+	}
 	#endregion
 
 	#region Run
@@ -208,20 +207,19 @@ public class AIScript : MonoBehaviour {
 			
 	}
 
+	/*
 	void SelectRandomAction()
 	{
 		int random = Random.Range (0, 2);
 		if (random == 0) 
 		{
 			AddHealth (5);
-			Debug.Log ("Add health");
 		} 
 		else 
 		{
 			AddBullets ();
-			Debug.Log ("Add bullets");
 		}
-	}
+	}*/ //not used
 	#endregion
 
 	public void HighestUtility()
@@ -242,8 +240,6 @@ public class AIScript : MonoBehaviour {
 		if (utilityAI.arrayList.Max () == utilityAI.utilityRunScore) 
 		{
 			RunAway ();
-			Debug.Log("run");
-			utilityAI.utilityRunScore = 0;
 		}
 
 		if (utilityAI.arrayList.Max () == utilityAI.utilityReloadScore) 

@@ -1,15 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AITurretScripts\AITurretScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AIAgentScripts\AIScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\AITurretScripts\BaseProjectileScript.cs" Line="15" Column="3" />
-      <File FileName="Assets\Scripts\AITurretScripts\ProjectileScript.cs" Line="18" Column="3" />
-      <File FileName="Assets\Scripts\AITurretScripts\ShootingScript.cs" Line="40" Column="4" />
-      <File FileName="Assets\Scripts\AITurretScripts\TrackingProjectile.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\AITurretScripts\TrackingScript.cs" Line="28" Column="4" />
-      <File FileName="Assets\Scripts\AIAgentScripts\UtilityAI.cs" Line="96" Column="3" />
-      <File FileName="Assets\Scripts\AIAgentScripts\AIScript.cs" Line="236" Column="4" />
-      <File FileName="Assets\Scripts\AITurretScripts\AITurretScript.cs" Line="24" Column="19" />
+      <File FileName="Assets\Scripts\AIAgentScripts\AIScript.cs" Line="65" Column="1" />
+      <File FileName="Assets\Scripts\AITurretScripts\AITurretScript.cs" Line="34" Column="30" />
+      <File FileName="Assets\Scripts\AIAgentScripts\UtilityAI.cs" Line="68" Column="48" />
+      <File FileName="Assets\Scripts\AIAgentScripts\AIAgentProjectileScript.cs" Line="17" Column="17" />
+      <File FileName="Assets\Scripts\SceneScripts\ReloadScene.cs" Line="15" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

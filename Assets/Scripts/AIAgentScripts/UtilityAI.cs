@@ -25,10 +25,7 @@ public class UtilityAI : MonoBehaviour {
 
 	public float testList;
 
-	public List<float> utilityList = new List<float>();
 	public float[] arrayList;
-	//public ArrayList arr = new ArrayList();
-
 	// Use this for initialization
 	void Start () 
 	{
@@ -99,7 +96,7 @@ public class UtilityAI : MonoBehaviour {
 	{
 		//utilityAttackScore = Mathf.Pow((aiScript.damage / aiScript.currentHealth),2);
 		float attackScore = 1.5f - (aiScript.damage / aiTurretScript.currentHealth);
-		Debug.Log (attackScore);
+		//Debug.Log (attackScore);
 		utilityAttackScore = attackScore * (aiScript.currentHealth/aiScript.maxHealth * aiScript.currentAmmo/aiScript.ammoCapacity);
 		utilityAttackScore = Mathf.Clamp (utilityAttackScore, 0.4f, 1);
 	}
