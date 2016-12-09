@@ -88,7 +88,7 @@ public class UtilityAI : MonoBehaviour {
 
 	void CalculateReloadUtility()
 	{
-		utilityReloadScore = Mathf.Pow((1 - (aiScript.currentAmmo/aiScript.ammoCapacity)),2) + 0.2f;
+		utilityReloadScore = Mathf.Pow((1 - (aiScript.currentAmmo/aiScript.ammoCapacity)),2) + 0.3f;
 		utilityReloadScore = Mathf.Clamp (utilityReloadScore, 0.0f, 1.0f);
 	}
 

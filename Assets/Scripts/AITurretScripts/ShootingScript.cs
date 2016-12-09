@@ -4,10 +4,11 @@ using System.Collections.Generic;
 
 public class ShootingScript : MonoBehaviour {
 
-	public float fireRate = 1.0f;
+	public float fireRate = 1.0f; //0.7 optimal
 	public float lastFired;
 	public bool range;
 	public int damage;
+	public bool randomFireRate = false;
 	public GameObject projectile;
 	public GameObject projectileSpawn;
 	public GameObject aiAgent;
@@ -26,6 +27,12 @@ public class ShootingScript : MonoBehaviour {
 	{
 		if (range == true) 
 		{
+			if (randomFireRate == true)
+			{
+				float random = Random.Range (0.7f, 3.1f);
+				fireRate = random;
+				randomFireRate = false;
+			}
 			SpawnProjectile ();
 		}
 	}
@@ -46,6 +53,7 @@ public class ShootingScript : MonoBehaviour {
 		if (col.gameObject.tag == "Agent") 
 		{
 			aiTurretScript.regeneration = 0.0f;
+			randomFireRate = true;
 		}
 			
 	}
@@ -55,6 +63,7 @@ public class ShootingScript : MonoBehaviour {
 		if (col.gameObject.tag == "Agent")
 		{
 			range = true;
+			//randomFireRate = true;
 		}
 
 	}
@@ -65,6 +74,7 @@ public class ShootingScript : MonoBehaviour {
 		{
 			range = false;
 			aiTurretScript.regeneration = 1.0f;
+			randomFireRate = false;
 		}
 
 
